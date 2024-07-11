@@ -14,7 +14,7 @@ public class App {
         int opcion;
         do {
             System.out.println("******** MENU DE OPCIONES ********");
-            System.out.println("1. Ingresar al Programa");
+            System.out.println("1. Iniciar pedido");
             System.out.println("2. Ver pedidos");
             System.out.println("3. Recojo del Pedido");
             System.out.println("0. Cerrar");
