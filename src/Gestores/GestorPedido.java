@@ -345,7 +345,7 @@ public class GestorPedido {
                                 if (confirmacionBilletera1.equalsIgnoreCase("s")) {
                                     System.out.println("¡Pedido finalizado! Gracias por "
                                             + "su compra.");
-                                    break;
+                                    return 0;
                                 } else {
                                     System.out.println("Pago no confirmado.");
                                     return -1;
@@ -360,7 +360,7 @@ public class GestorPedido {
                                 if (confirmacionBilletera2.equalsIgnoreCase("s")) {
                                     System.out.println("¡Pedido finalizado! Gracias por "
                                             + "su compra.");
-                                    break;
+                                    return 0;
                                 } else {
                                     System.out.println("Pago no confirmado.");
                                     return -1;
@@ -378,7 +378,7 @@ public class GestorPedido {
                                         ) {
                                     System.out.println("¡Pedido finalizado! "
                                             + "Gracias por " + "su compra.");
-                                    break;
+                                    return 0;
                                 } else {
                                     System.out.println("Pago no confirmado.");
                                     return -1;
@@ -509,5 +509,4 @@ public class GestorPedido {
             System.out.println("" + ex.getMessage());
         }
     }
-
 }

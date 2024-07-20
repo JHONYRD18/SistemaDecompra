@@ -38,6 +38,7 @@ public class App {
             switch (opcion) {
                 case 1:
                     limpiarPantalla();
+                    usuario.nextLine();
                     iniciarPedido(usuario);
                     break;
                 case 2:
