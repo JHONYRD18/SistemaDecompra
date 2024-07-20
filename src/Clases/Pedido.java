@@ -29,32 +29,16 @@ public class Pedido {
         return codigoCompra;
     }
 
-    public void setCodigoCompra(String codigoCompra) {
-        this.codigoCompra = codigoCompra;
-    }
-
     public Usuario getComprador() {
         return comprador;
-    }
-
-    public void setComprador(Usuario comprador) {
-        this.comprador = comprador;
     }
 
     public Menu getMenuElegido() {
         return menuElegido;
     }
 
-    public void setMenuElegido(Menu menuElegido) {
-        this.menuElegido = menuElegido;
-    }
-
     public int getMetodoPago() {
         return metodoPago;
-    }
-
-    public void setMetodoPago(int metodoPago) {
-        this.metodoPago = metodoPago;
     }
 
     public static int getContadorDePedidos() {

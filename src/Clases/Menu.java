@@ -28,18 +28,6 @@ public class Menu {
     public double getPrecio() {
         return precio;
     }
-    
-    public String[] getPlatos() {
-        return platos;
-    }
-
-    public String[] getEntradas() {
-        return entradas;
-    }
-
-    public String[] getBebidas() {
-        return bebidas;
-    }
 
     // Métodos para obtener platos, entradas y bebidas por índice
     public String getPlato(int indice) {
