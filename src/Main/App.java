@@ -1,47 +1,66 @@
-
 package Main;
 
-import Gestores.GestorCompra;
+import static Gestores.GestorPedido.iniciarPedido;
+import static Gestores.GestorPedido.limpiarPantalla;
+import static Gestores.GestorPedido.recojoPedido;
+import static Gestores.GestorPedido.verPedidos;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Jhony RD
+ */
 public class App {
+
+    public static void esperarEnter(Scanner leer) {
+        System.out.print("\nPresione Enter para mostrar el Menu Principal...");
+        leer.nextLine();
+    }
+    
+    public static void mostrarMenu() {
+        System.out.println("=== Sistema de Gestion de Pedidos ===");
+        System.out.println("1. Iniciar Pedido");
+        System.out.println("2. Ver Pedidos");
+        System.out.println("3. Recojo de Pedido");
+        System.out.println("0. Cerrar");
+        System.out.print("Seleccione una opcion: ");
+    }
 
     public static void main(String[] args) {
         Scanner usuario = new Scanner(System.in);
+
         int opcion;
         do {
-            System.out.println("******** MENU DE OPCIONES ********");
-            System.out.println("1. Iniciar pedido");
-            System.out.println("2. Ver pedidos");
-            System.out.println("3. Recojo del Pedido");
-            System.out.println("0. Cerrar");
-            System.out.println("**********************************");
-            System.out.print("Ingrese la opcion deseada: ");
+            mostrarMenu();
             opcion = usuario.nextInt();
-            usuario.nextLine();
+            usuario.nextLine(); // Limpiar el buffer de entrada
+            
             switch (opcion) {
                 case 1:
-                    System.out.println("");
-                    GestorCompra.gestionarCompra(usuario);
-                    System.out.println("");
+                    limpiarPantalla();
+                    iniciarPedido(usuario);
                     break;
                 case 2:
-                    System.out.println("");
-                    GestorCompra.verPedidosRegistrados();
-                    System.out.println("");
+                    limpiarPantalla();
+                    usuario.nextLine();                    
+                    verPedidos(usuario);
                     break;
                 case 3:
-                    System.out.println("");
-                    GestorCompra.gestionarRecojo(usuario);
-                    System.out.println("");
+                    limpiarPantalla();
+                    recojoPedido(usuario);
                     break;
                 case 0:
-                    System.out.println("");
-                    System.out.println("Saliendo del programa");
+                    System.out.println("Saliendo del programa...");
+                    System.exit(0);
                     break;
                 default:
-                    throw new AssertionError();
+                    System.out.println("Opcion no válida. Intente nuevamente.");
             }
+            esperarEnter(usuario);
         } while (opcion != 0);
+        usuario.close();
+        
     }
+    
+   
 }
