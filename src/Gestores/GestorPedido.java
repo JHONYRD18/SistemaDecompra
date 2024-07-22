@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Gestores;
 
 import Clases.Menu;
@@ -46,7 +43,7 @@ public class GestorPedido {
         }
         // Preguntar método de pago
         int metodoPago = verificarMetodoDePago(usuario);
-        if (metodoPago != 0) {
+        if (metodoPago == -1) {
             System.out.println("El pago no se realizó correctamente. "
                     + "Cerrando programa.");
             limpiarPantalla();
@@ -64,9 +61,29 @@ public class GestorPedido {
 
         // Mostrar mensaje de confirmación
         System.out.println("Codigo de compra: " + codigoCompra);
+        System.out.println("Método de Pago: " + obtenerMetodoPagoString(metodoPago));
+        System.out.println("=================================");
         limpiarPantalla();
     }
 
+     private static String obtenerMetodoPagoString(int metodoPago) {
+        switch (metodoPago) {
+            case 1:
+                return "Tarjeta de Crédito";
+            case 2:
+                return "Tarjeta de Débito";
+            case 3:
+                return "Yape";
+            case 4:
+                return "Tunki";
+            case 5:
+                return "Plin";
+            default:
+                return "No especificado";
+        }
+     }
+    
+    
     private static Menu seleccionarMenu(Scanner usuario) {
 
         for (int i = 0; i < menus.length; i++) {
@@ -260,150 +277,134 @@ public class GestorPedido {
         return comprador;
     }
 
-    private static int verificarMetodoDePago(Scanner usuario) {
-        int intentos = 0;
-        while (intentos < 3) {
-            System.out.println("");
-            System.out.println("1. Tarjeta 2. Billetera Digital");
-            System.out.print("Seleccione su metodo de pago:");
-            int metodoDePago = usuario.nextInt();
-            usuario.nextLine(); // Limpiar el buffer de entrada
+   private static int verificarMetodoDePago(Scanner usuario) {
+    int intentos = 0;
+    while (intentos < 3) {
+        System.out.println("");
+        System.out.println("1. Tarjeta 2. Billetera Digital");
+        System.out.print("Seleccione su metodo de pago:");
+        int metodoDePago = usuario.nextInt();
+        usuario.nextLine(); // Limpiar el buffer de entrada
 
-            switch (metodoDePago) {
-                case 1:
-                    int tipoTarjeta = 0;
-                    String tipoTarjetaTexto = "";
-                    int intentos1 = 0;
-                    while (intentos1 < 2) {
-                        System.out.println("1. Crédito 2. Débito");
-                        System.out.print("Seleccione el tipo de tarjeta: ");
-                        tipoTarjeta = usuario.nextInt();
-                        usuario.nextLine(); // Limpiar el buffer de entrada
+        switch (metodoDePago) {
+            case 1:
+                // Lógica para tarjetas
+                
+                String tipoTarjetaTexto = "";
+                int intentos1 = 0;
+                while (intentos1 < 2) {
+                    System.out.println("1. Crédito 2. Débito");
+                    System.out.print("Seleccione el tipo de tarjeta: ");
+                    int tipoTarjeta = usuario.nextInt();
+                    usuario.nextLine(); // Limpiar el buffer de entrada
 
-                        switch (tipoTarjeta) {
-                            case 1:
-                                tipoTarjetaTexto = "Tarjeta de Crédito";
-                                System.out.print("¿Desea confirmar el pago "
-                                        + "con " + tipoTarjetaTexto + "? "
-                                                + "(S / N): ");
-                                String confirmacionTarjeta1 = usuario.nextLine();
+                    switch (tipoTarjeta) {
+                        case 1:
+                            tipoTarjetaTexto = "Tarjeta de Crédito";
+                            System.out.print("¿Desea confirmar el pago con " + tipoTarjetaTexto + "? (S / N): ");
+                            String confirmacionTarjeta1 = usuario.nextLine();
 
-                                if (confirmacionTarjeta1.equalsIgnoreCase("s")) {
-                                    System.out.println("¡Pedido finalizado! "
-                                            + "Gracias por su compra.");
-                                    return 0; // Indicar éxito
-                                } else {
-                                    System.out.println("Pago no confirmado.");
-                                    return -1; // Indicar error
-                                }
+                            if (confirmacionTarjeta1.equalsIgnoreCase("s")) {
+                                System.out.println("¡Pedido finalizado! Gracias por su compra.");
+                                return 1; // Indicar éxito
+                            } else {
+                                System.out.println("Pago no confirmado.");
+                                return -1; // Indicar error
+                            }
 
-                            case 2:
-                                tipoTarjetaTexto = "Tarjeta de Débito";
-                                System.out.print("¿Desea confirmar el pago con"
-                                        + " " + tipoTarjetaTexto + "? (S / N)"
-                                                + ": ");
-                                String confirmacionTarjeta2 = usuario.nextLine();
+                        case 2:
+                            tipoTarjetaTexto = "Tarjeta de Débito";
+                            System.out.print("¿Desea confirmar el pago con " + tipoTarjetaTexto + "? (S / N): ");
+                            String confirmacionTarjeta2 = usuario.nextLine();
 
-                                if (confirmacionTarjeta2.equalsIgnoreCase("s")) {
-                                    System.out.println("¡Pedido finalizado! "
-                                            + "Gracias por su compra.");
-                                    return 0; // Indicar éxito
-                                } else {
-                                    System.out.println("Pago no confirmado.");
-                                    return -1; // Indicar error
-                                }
+                            if (confirmacionTarjeta2.equalsIgnoreCase("s")) {
+                                System.out.println("¡Pedido finalizado! Gracias por su compra.");
+                                return 2; // Indicar éxito
+                            } else {
+                                System.out.println("Pago no confirmado.");
+                                return -1; // Indicar error
+                            }
 
-                            default:
-                                System.out.println("Opción de tarjeta no válida.");
-                                intentos1++;
-                                break;
-                        }
+                        default:
+                            System.out.println("Opción de tarjeta no válida.");
+                            intentos1++;
+                            break;
                     }
-                    System.out.println("Se han agotado los intentos. "
-                            + "Operación cancelada.");
-                    return -1; // Indicar error
+                }
+                System.out.println("Se han agotado los intentos. Operación cancelada.");
+                return -1; // Indicar error
 
-                case 2:
-                    int intentos2 = 0;
-                    int billeteraDigital = 0;
-                    String billeteraTexto = "";
+            case 2:
+                // Lógica para billeteras digitales
+                int intentos2 = 0;
 
-                    while (intentos2 < 2) {
-                        System.out.println("1. Yape 2. Tunki 3. Plin");
-                        System.out.print("Seleccione la billetera digital: ");
-                        billeteraDigital = usuario.nextInt();
-                        usuario.nextLine(); // Limpiar el buffer de entrada
+                String billeteraTexto = "";
 
-                        switch (billeteraDigital) {
-                            case 1:
-                                billeteraTexto = "Yape";
+                while (intentos2 < 2) {
+                    System.out.println("1. Yape 2. Tunki 3. Plin");
+                    System.out.print("Seleccione la billetera digital: ");
+                    int billeteraDigital = usuario.nextInt();
+                    usuario.nextLine(); // Limpiar el buffer de entrada
 
-                                System.out.print("¿Desea confirmar el pago con "
-                                        + billeteraTexto + "? (s / n): ");
-                                String confirmacionBilletera1 = usuario.nextLine();
+                    switch (billeteraDigital) {
+                        case 1:
+                            billeteraTexto = "Yape";
 
-                                if (confirmacionBilletera1.equalsIgnoreCase("s")) {
-                                    System.out.println("¡Pedido finalizado! Gracias por "
-                                            + "su compra.");
-                                    return 0;
-                                } else {
-                                    System.out.println("Pago no confirmado.");
-                                    return -1;
-                                }
+                            System.out.print("¿Desea confirmar el pago con " + billeteraTexto + "? (s / n): ");
+                            String confirmacionBilletera1 = usuario.nextLine();
 
-                            case 2:
-                                billeteraTexto = "Tunki";
-                                System.out.print("¿Desea confirmar el pago con "
-                                        + billeteraTexto + "? (s / n): ");
-                                String confirmacionBilletera2 = usuario.nextLine();
+                            if (confirmacionBilletera1.equalsIgnoreCase("s")) {
+                                System.out.println("¡Pedido finalizado! Gracias por su compra.");
+                                return 3;
+                            } else {
+                                System.out.println("Pago no confirmado.");
+                                return -1;
+                            }
 
-                                if (confirmacionBilletera2.equalsIgnoreCase("s")) {
-                                    System.out.println("¡Pedido finalizado! Gracias por "
-                                            + "su compra.");
-                                    return 0;
-                                } else {
-                                    System.out.println("Pago no confirmado.");
-                                    return -1;
-                                }
+                        case 2:
+                            billeteraTexto = "Tunki";
+                            System.out.print("¿Desea confirmar el pago con " + billeteraTexto + "? (s / n): ");
+                            String confirmacionBilletera2 = usuario.nextLine();
 
-                            case 3:
-                                billeteraTexto = "Plin";
-                                System.out.print("¿Desea confirmar el "
-                                        + "pago con " + billeteraTexto + "? "
-                                                + "(s / n): ");
-                                String confirmacionBilletera3 = 
-                                        usuario.nextLine();
+                            if (confirmacionBilletera2.equalsIgnoreCase("s")) {
+                                System.out.println("¡Pedido finalizado! Gracias por su compra.");
+                                return 4;
+                            } else {
+                                System.out.println("Pago no confirmado.");
+                                return -1;
+                            }
 
-                                if (confirmacionBilletera3.equalsIgnoreCase("s")
-                                        ) {
-                                    System.out.println("¡Pedido finalizado! "
-                                            + "Gracias por " + "su compra.");
-                                    return 0;
-                                } else {
-                                    System.out.println("Pago no confirmado.");
-                                    return -1;
-                                }
-                                
-                            default:
-                                System.out.println("Opción de billetera digital"
-                                        + " no válida.");
-                                intentos2++;
-                                break;
-                        }
+                        case 3:
+                            billeteraTexto = "Plin";
+                            System.out.print("¿Desea confirmar el pago con " + billeteraTexto + "? (s / n): ");
+                            String confirmacionBilletera3 = usuario.nextLine();
+
+                            if (confirmacionBilletera3.equalsIgnoreCase("s")) {
+                                System.out.println("¡Pedido finalizado! Gracias por su compra.");
+                                return 5;
+                            } else {
+                                System.out.println("Pago no confirmado.");
+                                return -1;
+                            }
+
+                        default:
+                            System.out.println("Opción de billetera digital no válida.");
+                            intentos2++;
+                            break;
                     }
-                    System.out.println("Se han agotado los intentos. "
-                            + "Operación cancelada.");
-                    return -1; // Indicar error
+                }
+                System.out.println("Se han agotado los intentos. Operación cancelada.");
+                return -1; // Indicar error
 
-                default:
-                    System.out.println("Metodo de pago no valido.");
-                    intentos++;
-            }
-            
+            default:
+                System.out.println("Método de pago no válido.");
+                intentos++;
         }
-        System.out.println("Ha alcanzado el maximo de intentos.");
-        return -1;
     }
+    System.out.println("Ha alcanzado el máximo de intentos.");
+    return -1;
+}
+
 
     private static String generarCodigoCompra() {
         return "COD" + (int) (Math.random() * 1000);
